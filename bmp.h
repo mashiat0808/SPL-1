@@ -1,5 +1,7 @@
+#pragma once
 #include <iostream>
 #include <vector>
+#include <stdexcept>
 #include <fstream>
 
 using namespace std;
@@ -46,20 +48,152 @@ struct bmp{
 
 
     bmp(const char *filename){
-        read(filename);
+        readbmp(filename);
     }
 
     void readbmp(const char *filename)
     {
+        std::ifstream input{filename, std::ios_base::binary};
+        if(input)
+        {   //check if filetype is bmp
+            input.readbmp((char*)&fileHeader,sizeof(fileHeader));
+            if(fileHeader.fileType!= 0x4D42)
+            {
+                throw std::runtime_error("Unrecognized file format! Please enter .BMP file.");
+            }
+            input.readbmp((char*)&infoHeader, sizeof(infoHeader));
 
+            //bmpColorHeader used for transparent image
+            if(infoHeader.NumOfBitCount==32)
+            {
+                //checking for color mask info
+                if(infoHeader.headerSize >=(sizeof(bmpInfoHeader)+sizeof(bmpColorHeader)))
+                {
+                    input.readbmp((char*)&colorHeader, sizeof(colorHeader));
+                    //check is pixel data is BGRA and color space type is sRGB
+                    checkColorHeader(colorHeader);
+                }
+                else{
+                    str::cerr<< "Error! the file does not contain bitmask information!";
+                    throw std::runtime_error("Unrecognized file format!");
+                }
+            }
+
+            //jump to pixel data location
+            input.seekg(fileHeader.offsetData, input.beg);
+
+
+            //saving header and data
+            if(infoHeader.NumOfBitCount==32)
+            {
+                infoHeader.headerSize= sizeof(bmpInfoHeader)+sizeof(bmpColorHeader);
+                fileHeader.offsetData= sizeof(bmpFileHeader) + sizeof(bmpInfoHeader)+sizeof(bmpColorHeader);
+            }
+            else
+            {
+                infoHeader.HeaderSize= sizeof(bmpInfoHeader);
+                fileHeader.offsetData= sizeof(bmpFileHeader) + sizeof(bmpInfoHeader);
+            }
+            fileHeader.fileSize=fileHeader.offsetData;
+
+            if(infoHeader.height<0)
+            {
+                throw std::runtime_error("Error!");
+            }
+
+            data.resize(infoHeader.width * infoHeader.height *infoHeader.NumOfBitCount /8);
+
+            //checking row padding
+            if(infoHeader.width %4==0)
+            {
+                input.readbmp((char*)data.data(), data.size());
+                fileHeader.fileSize += static_cast<uint32_t>(data.size());
+            }
+            else
+            {
+                rowStride= infoHeader.width  *infoHeader.NumOfBitCount /8;
+                uint32_t newStride =makeStrideAligned(4);
+                std::vector<uint8_t> paddingRow(newStride -rowStride);
+
+                for(int y=0;y< infoHeader.height;++y)
+                {
+                    input.readbmp((char*)(data.data()+rowStride *y), rowStride);
+                    input.readbmp((char*)paddingRow.data(),paddingRow.size());
+                }
+                fileHeader.fileSize +=static_cast<uint32_t>(data.size())+ infoHeader.height * static_cast<uint32_t>(paddingRow.size());
+
+            }
+
+
+        }
+        else 
+        {
+            throw std::runtime_error("Unable to open file!");
+        }
     }
+
     bmp(int32_t width, int32_t height, bool has_alpha=true)
     {
+        if(width<=0 || height <=0)
+        {
+            throw std::runtime_error("Image cannot be processed.").
+        }
+        infoHeader.width=width;
+        infoHeader.height=height;
+        if(has_alpha)
+        {
+            infoHeader.size=sizeof(bmpInfoHeader);
+            fileHeader,offsetData=sizeof(bmpFileHeader)+sizeof(bmpInfoHeader);
+
+            infoHeader.NumOfBitCount=32;
+            infoHeader.compression=3;
+            rowStride= width * 4;
+            data.resize(rowStride * height);
+            fileHeader.fileSize = fileHeader.offsetData +data.size();
+        }
+        else
+        {
+            infoHeader.size=sizeof(bmpInfoHeader);
+            fileHeader.offsetData= sizeof(bmpFileHEader)+sizeof(bmpInfoHeader);
+
+            inforHeader.NumOfBitCount=24;
+            infoHeader.compression=0;
+            rowStride=width*3;
+            data.resize(rowStride * height);
+
+            uint32_t newStride= makeStrideAligned(4);
+            fileHeader.fileSize=fileHeader.offsetData +static_cast<uint32_t>(data.size())+infoHeader.height* (newStride- rowStride);
+        }
 
     }
 
+    void write(const char *filename){
+        std::ofstream of{ filename, std::iosBase::binary};
+        if (of)
+        {
+            if (infoHeader.NumOfBitCount==32)
+            {
+                writeHeadersAndData(of);
+            }
+            else if(infoHeader.NumOfBitCount==24)
+            {
+                if(infoHeader.width%4==0)
+                {
+                    writeHeadersAndData(of);
+                }
+                else
+                {
+                    uint32_t newStride= makeStrideAligned(4);
+                    std::vector<uint8_t> paddingRow()
+                }
+            }
+        }
+    }
+
+    checkColorHeader(colorHeader);
     void writebmp(const char *filename)
     {
         
     }
+    
 }
