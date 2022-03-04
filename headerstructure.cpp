@@ -31,12 +31,16 @@ struct bmpInfoHeader
     unsigned int pixelPerMeterY; //pixel per meter along y axis
     unsigned int colorsInColorTable; //number of colors in color table
     unsigned int importantcolorCount; //number of colors used
-    unsigned int redChannelBitmask; //bit mask for red channel
-    unsigned int greenChannelBitmask; //bit mask for green channel
-    unsigned int blueChannelBitmask;  //bit mask for blue channel
-    unsigned int alphaChannelBitmask; //bit mask for alpha channel
-    unsigned int colorSpaceType;    //sRGB default
 };
+
+struct bmpColorHeader{
+    unsigned int redChannelBitmask; //red channel bitmask
+    unsigned int greenChannelBitmask; //green channel bitmask
+    unsigned int blueChannelBitmask; //blue channel bitmask
+    unsigned int alphaChannelBitmask; //alpha channel bitmask
+    unsigned int colorSpaceType;    //color space type usually sRGB default
+};
+
 
 struct bmpColorTable
 {

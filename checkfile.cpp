@@ -5,18 +5,19 @@
 #include <stdexcept>
 
 using namespace std;
-void checkFile(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader)
+void checkFile(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader)
 {
-     ifstream iFile;
+    ifstream iFile;
     iFile.open("x.bmp",ios:: binary);
     if(iFile.eof()) throw runtime_error("File not found");
-
     iFile.seekg(0,ios::beg);
-    iFile.read((char*)&signature,sizeof(signature)); 
+    iFile.read((char*)&signature,sizeof(signature));
     iFile.read((char*)&fileHeader,sizeof(fileHeader));
     iFile.read((char*)&infoHeader,sizeof(infoHeader));
+    iFile.read((char*)&colorHeader,sizeof(colorHeader));
     iFile.close();
-    if(iFile)
+
+      if(iFile)
     {
          //check if file is bmp
         if(signature.signatureData[0]!='B' || signature.signatureData[1]!='M')
@@ -34,5 +35,7 @@ void checkFile(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader inf
     {
         cout<<"File not found"<<endl;
     }
-    
+
+
+
 }

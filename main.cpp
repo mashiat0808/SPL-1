@@ -14,9 +14,10 @@ int main ()
     bmpSignature signature;
     bmpFileHeader fileHeader;
     bmpInfoHeader infoHeader;
+    bmpColorHeader colorHeader;
 
-    checkFile(signature,fileHeader,infoHeader);
-    ReadHeaderAndPrint(signature,fileHeader,infoHeader);
+    checkFile(signature,fileHeader,infoHeader, colorHeader);
+    ReadHeaderAndPrint(signature,fileHeader,infoHeader, colorHeader);
     
 
     return 0;

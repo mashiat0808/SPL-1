@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void ReadHeaderAndPrint(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader)
+void ReadHeaderAndPrint(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader)
 {
     ifstream iFile;
     iFile.open("x.bmp",ios:: binary);
@@ -14,6 +14,7 @@ void ReadHeaderAndPrint(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoH
     iFile.read((char*)&signature,sizeof(signature)); // memory allocation problem if signature is in fileHeader.Char and int///////
     iFile.read((char*)&fileHeader,sizeof(fileHeader));
     iFile.read((char*)&infoHeader,sizeof(infoHeader));
+    iFile.read((char*)&colorHeader,sizeof(colorHeader));
 
     //colorTableSize = infoHeader.colorsInColorTable;
 
@@ -43,11 +44,11 @@ void ReadHeaderAndPrint(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoH
     cout <<" bmp Y axis pixel per meter : "<<infoHeader.pixelPerMeterY<<" bytes"<<endl;
     cout <<" bmp colorsInColorTable     : "<<infoHeader.colorsInColorTable<<" bytes"<<endl;
     cout <<" bmp important color Count  : "<<infoHeader.importantcolorCount<<" bytes"<<endl;
-    cout <<" bmp red channel bit mask   : "<<infoHeader.redChannelBitmask<<" bytes"<<endl;
-    cout <<" bmp green channel bit mask : "<<infoHeader.greenChannelBitmask<<" bytes"<<endl;
-    cout <<" bmp blue channel bit mask  : "<<infoHeader.blueChannelBitmask<<" bytes"<<endl;
-    cout <<" bmp alpha channel bit mask : "<<infoHeader.alphaChannelBitmask<<" bytes"<<endl;
-    cout <<" bmp color space type       : "<<infoHeader.colorSpaceType<<" bytes"<<endl;
+    cout <<" bmp red channel bit mask   : "<<colorHeader.redChannelBitmask<<" bytes"<<endl;
+    cout <<" bmp green channel bit mask : "<<colorHeader.greenChannelBitmask<<" bytes"<<endl;
+    cout <<" bmp blue channel bit mask  : "<<colorHeader.blueChannelBitmask<<" bytes"<<endl;
+    cout <<" bmp alpha channel bit mask : "<<colorHeader.alphaChannelBitmask<<" bytes"<<endl;
+    cout <<" bmp color space type       : "<<colorHeader.colorSpaceType<<" bytes"<<endl;
  
 
 }
