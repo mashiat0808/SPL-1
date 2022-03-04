@@ -5,6 +5,7 @@
 #include "HeaderStructure.cpp"
 #include "ShowInfo.cpp"
 #include "checkfile.cpp"
+#include "PixelData.cpp"
 
 using namespace std;
 
@@ -18,7 +19,8 @@ int main ()
 
     checkFile(signature,fileHeader,infoHeader, colorHeader);
     ReadHeaderAndPrint(signature,fileHeader,infoHeader, colorHeader);
-    
-
+    readImage(signature,fileHeader,infoHeader, colorHeader);
+   
+   
     return 0;
 }
