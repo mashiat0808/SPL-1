@@ -6,22 +6,22 @@ using namespace std;
 
 void ReadHeaderAndPrint(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader)
 {
-    ifstream iFile;
-    iFile.open("x.bmp",ios:: binary);
-    if(iFile.eof()) return;
+    ifstream inputFile;
+    inputFile.open("x.bmp",ios:: binary);
+    if(inputFile.eof()) return;
 
-    iFile.seekg(0,ios::beg);
-    iFile.read((char*)&signature,sizeof(signature)); // memory allocation problem if signature is in fileHeader.Char and int///////
-    iFile.read((char*)&fileHeader,sizeof(fileHeader));
-    iFile.read((char*)&infoHeader,sizeof(infoHeader));
-    iFile.read((char*)&colorHeader,sizeof(colorHeader));
+    inputFile.seekg(0,ios::beg);
+    inputFile.read((char*)&signature,sizeof(signature)); // memory allocation problem if signature is in fileHeader.Char and int///////
+    inputFile.read((char*)&fileHeader,sizeof(fileHeader));
+    inputFile.read((char*)&infoHeader,sizeof(infoHeader));
+    inputFile.read((char*)&colorHeader,sizeof(colorHeader));
 
     //colorTableSize = infoHeader.colorsInColorTable;
 
     bmpColorTable colorTable;
-    iFile.read((char*)&colorTable,sizeof(colorTable));
+    inputFile.read((char*)&colorTable,sizeof(colorTable));
 
-    iFile.close();
+    inputFile.close();
 
     cout <<"BMP Header\n"<<endl;
 

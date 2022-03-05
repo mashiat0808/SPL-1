@@ -6,6 +6,7 @@
 #include "ShowInfo.cpp"
 #include "checkfile.cpp"
 #include "PixelData.cpp"
+#include "writeimage.cpp"
 
 using namespace std;
 
@@ -19,8 +20,8 @@ int main ()
 
     checkFile(signature,fileHeader,infoHeader, colorHeader);
     ReadHeaderAndPrint(signature,fileHeader,infoHeader, colorHeader);
-    readImage(signature,fileHeader,infoHeader, colorHeader);
-   
+   readImage(signature,fileHeader,infoHeader, colorHeader);
+   copyImageFile();
    
     return 0;
 }

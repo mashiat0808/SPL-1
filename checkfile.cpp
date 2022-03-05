@@ -7,17 +7,17 @@
 using namespace std;
 void checkFile(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader)
 {
-    ifstream iFile;
-    iFile.open("x.bmp",ios:: binary);
-    if(iFile.eof()) throw runtime_error("File not found");
-    iFile.seekg(0,ios::beg);
-    iFile.read((char*)&signature,sizeof(signature));
-    iFile.read((char*)&fileHeader,sizeof(fileHeader));
-    iFile.read((char*)&infoHeader,sizeof(infoHeader));
-    iFile.read((char*)&colorHeader,sizeof(colorHeader));
-    iFile.close();
+    ifstream inputFile;
+    inputFile.open("x.bmp",ios:: binary);
+    if(inputFile.eof()) throw runtime_error("File not found");
+    inputFile.seekg(0,ios::beg);
+    inputFile.read((char*)&signature,sizeof(signature));
+    inputFile.read((char*)&fileHeader,sizeof(fileHeader));
+    inputFile.read((char*)&infoHeader,sizeof(infoHeader));
+    inputFile.read((char*)&colorHeader,sizeof(colorHeader));
+    inputFile.close();
 
-      if(iFile)
+      if(inputFile)
     {
          //check if file is bmp
         if(signature.signatureData[0]!='B' || signature.signatureData[1]!='M')
