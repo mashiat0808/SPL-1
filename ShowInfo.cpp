@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void ReadHeaderAndPrint(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader)
+void readHeaderAndPrint(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader)
 {
     ifstream inputFile;
     inputFile.open("x.bmp",ios:: binary);
@@ -49,6 +49,5 @@ void ReadHeaderAndPrint(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoH
     cout <<" bmp blue channel bit mask  : "<<colorHeader.blueChannelBitmask<<" bytes"<<endl;
     cout <<" bmp alpha channel bit mask : "<<colorHeader.alphaChannelBitmask<<" bytes"<<endl;
     cout <<" bmp color space type       : "<<colorHeader.colorSpaceType<<" bytes"<<endl;
- 
 
 }
