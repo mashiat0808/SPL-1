@@ -1,15 +1,15 @@
 #include <fstream>
 #include <iomanip>
 #include <cmath>
-
+#include "header.h"
 using namespace std;
-
+//contains bmp signature
 struct bmpSignature
 {
     unsigned char signatureData[2]; //BM is .bmp file
 };
 
-
+//contains bmp file header information
 struct bmpFileHeader
 {
     unsigned int fileSize{0}; //filesize in byte
@@ -17,7 +17,7 @@ struct bmpFileHeader
     unsigned short reserved2{0}; //reserved
     unsigned int dataOffset{0}; //start of pixel data
 };
-
+//contains bmp info header information
 struct bmpInfoHeader
 {
     unsigned int headerSize{0}; //headersize in byte
@@ -32,7 +32,7 @@ struct bmpInfoHeader
     unsigned int colorsInColorTable{0}; //number of colors in color table
     unsigned int importantcolorCount{0}; //number of colors used
 };
-
+//contains bmp color header information
 struct bmpColorHeader{
     unsigned int redChannelBitmask{0x00ff0000 }; //red channel bitmask
     unsigned int greenChannelBitmask{0x0000ff00 }; //green channel bitmask
@@ -41,7 +41,7 @@ struct bmpColorHeader{
     unsigned int colorSpaceType{0x73524742};    //color space type usually sRGB default
 };
 
-
+//contains bmp color table information
 struct bmpColorTable
 {
     unsigned int colorDefinition[256];

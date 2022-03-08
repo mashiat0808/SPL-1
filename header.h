@@ -10,8 +10,10 @@
 #include "checkfile.cpp"
 #include "PixelData.cpp"
 #include "writeimage.cpp"
+//#include "decimaltohexadecimal.cpp"
 
 void readHeaderAndPrint(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader);
 void checkFile(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader);
 void readImage(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader);
 void copyImageFile();
+///string decToHexa(int n);

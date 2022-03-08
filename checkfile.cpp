@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include <stdexcept>
-
+#include "header.h"
 using namespace std;
 void checkFile(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader)
 {
