@@ -35,7 +35,4 @@ void checkFile(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader inf
     {
         cout<<"File not found"<<endl;
     }
-
-
-
 }

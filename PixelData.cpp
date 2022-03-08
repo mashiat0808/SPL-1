@@ -5,8 +5,6 @@ using namespace std;
 
 
 int pixels[10000000][3]={0};
-
-
 void readImage(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader)
 {
      ifstream inputFile;
@@ -20,18 +18,15 @@ void readImage(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader inf
     
     int width=infoHeader.width;
     int height= infoHeader.height;
-
     for(int i=0;i<height;i++)
     {
         for(int j=0;j<width;j++)
         {
-        
             unsigned char color[3];
             inputFile.read(reinterpret_cast<char*>(color),3);
-
-            pixels[i*width+j][0] = static_cast<float>(color[2]);
-            pixels[i*width+j][1] = static_cast<float>(color[1]);
-            pixels[i*width+j][2] = static_cast<float>(color[0]);
+            pixels[i*width+j][0] = static_cast<float>(color[2]); //red
+            pixels[i*width+j][1] = static_cast<float>(color[1]); //green
+            pixels[i*width+j][2] = static_cast<float>(color[0]); //blue
         }
     }
 
@@ -39,9 +34,10 @@ void readImage(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader inf
     {
         for(int j=0;j<width;j++)
         {
-           cout<<"<"<<pixels[i*width+j][0]<<" "<<pixels[i*width+j][1]<<" "<<pixels[i*width+j][2]<<"> ";
+           cout<<"<"<<pixels[i*width+j][2]<<","<<pixels[i*width+j][1]<<","<<pixels[i*width+j][0]<<"> ";
+           cout<<"\t";
         }
-        cout<<endl;
+        cout<<endl<<endl;
     }
     inputFile.close();
 }

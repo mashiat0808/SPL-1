@@ -5,7 +5,7 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "HeaderStructure.cpp"
+#include "headerstructure.cpp"
 #include "ShowInfo.cpp"
 #include "checkfile.cpp"
 #include "PixelData.cpp"
