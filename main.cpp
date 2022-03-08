@@ -12,8 +12,8 @@ int main ()
 
     checkFile(signature,fileHeader,infoHeader, colorHeader);
     readHeaderAndPrint(signature,fileHeader,infoHeader, colorHeader);
-   // readImage(signature,fileHeader,infoHeader, colorHeader);
-   // copyImageFile();
+    readImage(signature,fileHeader,infoHeader, colorHeader);
+    copyImageFile();
    
     return 0;
 }
