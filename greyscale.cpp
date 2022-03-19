@@ -23,44 +23,36 @@ void greyscale(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader inf
     inputFile.read((char*)&infoHeader,sizeof(infoHeader));
     inputFile.read((char*)&colorHeader,sizeof(colorHeader));
 
+
     outputFile.write((char*)&signature,sizeof(signature));
     outputFile.write((char*)&fileHeader,sizeof(fileHeader));
     outputFile.write((char*)&infoHeader,sizeof(infoHeader));
+    outputFile.write((char*)&colorHeader,sizeof(colorHeader));
     
-
-    
+  
     int width=infoHeader.width;
-    int height= infoHeader.height;    
+    int height= infoHeader.height;
+
+    //greyscale
     for(int i=0;i<height;i++)
     {
         for(int j=0;j<width;j++)
         {
             unsigned char color[3];
             inputFile.read(reinterpret_cast<char*>(color),3);
-            pixels[i][j][0] = static_cast<float>(color[2]); //red
-            pixels[i][j][1] = static_cast<float>(color[1]); //green
-            pixels[i][j][2] = static_cast<float>(color[0]); //blue
-
-            pixels[i][j][0] = (pixels[i][j][0] + pixels[i][j][1] + pixels[i][j][2])/3;
-            pixels[i][j][1] = (pixels[i][j][0] + pixels[i][j][1] + pixels[i][j][2])/3;
-            pixels[i][j][2] = (pixels[i][j][0] + pixels[i][j][1] + pixels[i][j][2])/3;
+            float grey = (static_cast<float>(color[0]) + static_cast<float>(color[1]) + static_cast<float>(color[2]))/3;
+            unsigned char greyColor[3];
+            greyColor[0] = static_cast<unsigned char>(grey);
+            greyColor[1] = static_cast<unsigned char>(grey);
+            greyColor[2] = static_cast<unsigned char>(grey);
+            outputFile.write(reinterpret_cast<char*>(greyColor),3);
         }
-    }
+    }    
+   
 
-    for(int i=0;i<height;i++)
-    {
-        for(int j=0;j<width;j++)
-        {
-            unsigned char color[3];
-            color[0] = (pixels[i][j][0]);
-            color[1] = (pixels[i][j][1]);
-            color[2] = (pixels[i][j][2]);
-            outputFile.write(reinterpret_cast<char*>(color),3);
-        }
-    }
- 
-
-
+    bmpColorTable colorTable;
+    inputFile.read((char*)&colorTable,sizeof(colorTable));
+    outputFile.write((char*)&colorTable,sizeof(colorTable));
     inputFile.close();
     outputFile.close();
 }

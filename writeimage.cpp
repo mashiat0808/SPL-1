@@ -9,10 +9,12 @@ void copyImageFile()
 {
     char input;
     ifstream inputFile;
+    
     ofstream outputFile;
 
 
     inputFile.open("x.bmp", ios:: binary);
+    
     outputFile.open("xcopy.bmp", ios :: binary);
 
     if(inputFile.is_open() && outputFile.is_open())
