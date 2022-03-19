@@ -13,7 +13,7 @@ void copyImageFile()
 
 
     inputFile.open("x.bmp", ios:: binary);
-    outputFile.open("makecopyx.bmp", ios :: binary);
+    outputFile.open("xcopy.bmp", ios :: binary);
 
     if(inputFile.is_open() && outputFile.is_open())
     {

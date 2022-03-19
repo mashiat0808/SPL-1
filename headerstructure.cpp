@@ -34,11 +34,11 @@ struct bmpInfoHeader
 };
 //contains bmp color header information
 struct bmpColorHeader{
-    unsigned int redChannelBitmask{0x00ff0000 }; //red channel bitmask
-    unsigned int greenChannelBitmask{0x0000ff00 }; //green channel bitmask
-    unsigned int blueChannelBitmask{0x000000ff}; //blue channel bitmask
-    unsigned int alphaChannelBitmask{0xff000000}; //alpha channel bitmask
-    unsigned int colorSpaceType{0x73524742};    //color space type usually sRGB default
+    unsigned int red{0x00ff0000 }; //red channel bitmask
+    unsigned int green{0x0000ff00 }; //green channel bitmask
+    unsigned int blue{0x000000ff}; //blue channel bitmask
+    unsigned int alpha{0xff000000}; //alpha channel bitmask
+    unsigned int color{0x73524742};    //color space type usually sRGB default
 };
 
 //contains bmp color table information

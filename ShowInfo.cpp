@@ -81,34 +81,33 @@ void readHeaderAndPrint(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoH
     cout <<" BMP important color Count: "<<infoHeader.importantcolorCount<<" bytes"<<endl;
    
     //bmp color header info
-
     //saving color info in hexadecimal
-    unsigned int redC=colorHeader.redChannelBitmask;
+    unsigned int redC=colorHeader.red;
     int redChannel=(int) redC;
-    string red=decToHexa(redChannel);
+    string redh=decToHexa(redChannel);
 
-    unsigned int greenC=colorHeader.greenChannelBitmask;
+    unsigned int greenC=colorHeader.green;
     int greenChannel=(int) greenC;
-    string green=decToHexa(greenChannel);
+    string greenh=decToHexa(greenChannel);
 
-    unsigned int blueC=colorHeader.blueChannelBitmask;
+    unsigned int blueC=colorHeader.blue;
     int blueChannel=(int) blueC;
-    string blue=decToHexa(blueChannel);
+    string blueh=decToHexa(blueChannel);
 
-    unsigned int alphaC=colorHeader.alphaChannelBitmask;
+    unsigned int alphaC=colorHeader.alpha;
     int alphaChannel=(int) alphaC;
-    string alpha=decToHexa(alphaChannel);
+    string alphah=decToHexa(alphaChannel);
 
-    unsigned int colorC=colorHeader.colorSpaceType;
+    unsigned int colorC=colorHeader.color;
     int colorChannel=(int) colorC;
-    string color=decToHexa(colorChannel);
+    string colorh=decToHexa(colorChannel);
 
     cout<<"\nColor Header\n"<<endl;
-    cout <<" BMP red channel bit mask   : "<<red<<endl;
-    cout <<" BMP green channel bit mask : "<<green<<endl;
-    cout <<" BMP blue channel bit mask  : "<<blue<<endl;
-    cout <<" BMP alpha channel bit mask : "<<alpha<<endl;
-    cout <<" BMP color space type       : "<<color<<endl;
+    cout <<" BMP red channel bit mask   : "<<redh<<endl;
+    cout <<" BMP green channel bit mask : "<<greenh<<endl;
+    cout <<" BMP blue channel bit mask  : "<<blueh<<endl;
+    cout <<" BMP alpha channel bit mask : "<<alphah<<endl;
+    cout <<" BMP color space type       : "<<colorh<<endl;
 
 }
 
