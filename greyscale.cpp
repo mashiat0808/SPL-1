@@ -10,8 +10,8 @@ void greyscale(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader inf
      ifstream inputFile;
      ofstream outputFile;
 
-    inputFile.open("x.bmp",ios:: binary);
-    outputFile.open("greyscale.bmp", ios :: binary);
+    inputFile.open("baboon.bmp",ios:: binary);
+    outputFile.open("greyscaleofbaboon2.bmp", ios :: binary);
     
     
     if(inputFile.eof()) throw runtime_error("File not found");
@@ -42,13 +42,12 @@ void greyscale(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader inf
             inputFile.read(reinterpret_cast<char*>(color),3);
             float grey = (static_cast<float>(color[0]) + static_cast<float>(color[1]) + static_cast<float>(color[2]))/3;
             unsigned char greyColor[3];
-            greyColor[0] = static_cast<unsigned char>(grey);
+            greyColor[0] = static_cast<unsigned char>(grey); 
             greyColor[1] = static_cast<unsigned char>(grey);
             greyColor[2] = static_cast<unsigned char>(grey);
             outputFile.write(reinterpret_cast<char*>(greyColor),3);
         }
     }    
-   
 
     bmpColorTable colorTable;
     inputFile.read((char*)&colorTable,sizeof(colorTable));

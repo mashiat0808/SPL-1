@@ -15,6 +15,7 @@ int main ()
   // readImage(signature,fileHeader,infoHeader, colorHeader);
  //   compressImageFile(signature,fileHeader,infoHeader, colorHeader);
    greyscale(signature,fileHeader,infoHeader, colorHeader);
+  edgedetection(signature,fileHeader,infoHeader, colorHeader);
   //  copyImageFile();
    
     return 0;
