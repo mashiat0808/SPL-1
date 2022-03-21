@@ -53,8 +53,8 @@ void edgedetection(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader
     int squaredGreen;
     int squaredRed;
 
-    inputFile.open("greyscaleofbaboon2.bmp",ios:: binary);
-    outputFile.open("edgeofbb.bmp", ios :: binary);
+    inputFile.open("meah.bmp",ios:: binary);
+    outputFile.open("meahedge2.bmp", ios :: binary);
     
     
     if(inputFile.eof()) throw runtime_error("File not found");
@@ -75,24 +75,12 @@ void edgedetection(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader
   
     int width=infoHeader.width;
     int height= infoHeader.height;
-unsigned char greyColor[3];
-    //greyscale
-  /*  for(int i=0;i<height;i++)
-    {
-        for(int j=0;j<width;j++)
-        {
-            unsigned char color[3];
-            inputFile.read(reinterpret_cast<char*>(color),3);
-            float grey = (static_cast<float>(color[0]) + static_cast<float>(color[1]) + static_cast<float>(color[2]))/3;
-            
-            greyColor[0] = static_cast<unsigned char>(grey);
-            greyColor[1] = static_cast<unsigned char>(grey);
-            greyColor[2] = static_cast<unsigned char>(grey);
-            outputFile.write(reinterpret_cast<char*>(greyColor),3);
-        }
-    }    
-*/
-        for(int i=0;i<height;i++)
+    unsigned char color[3];
+   
+
+   //greyscaling
+    //getting all pixel data
+    for(int i=0;i<height;i++)
     {
         for(int j=0;j<width;j++)
         {
@@ -103,72 +91,58 @@ unsigned char greyColor[3];
             pixels[i][j][2] = static_cast<float>(color[0]); //blue
         }
     }
+        float grey;
 
-    for (int lin = 0; lin < height; ++lin)
+    //greyscalling pixel data
+    for(int i=0;i<height;i++)
     {
-        for (int col = 0; col < width; ++col)
+        for(int j=0;j<width;j++)
         {
-            if (lin !=0 && lin != height && col != 0 && col != width)
+            grey= (pixels[i][j][0] + pixels[i][j][1] + pixels[i][j][2])/3;
+            pixels[i][j][0] = grey;
+            pixels[i][j][1] = grey;
+            pixels[i][j][2] = grey;
+        }
+    }
+
+    //edge detection
+    for(int i=0;i<height; i++)
+    {
+        for(int j=0; j<width;j++)
+        {
+            if (i !=0 && i != height && j != 0 && j != width)
             {
-            gxValBlue = (pixels[lin-1][col-1][0] * gx[0][0] + pixels[lin-1][col][0] * gx[0][1] + pixels[lin-1][col+1][0] * gx[0][2] + pixels[lin][col-1][0] * gx[1][0] + pixels[lin][col][0] * gx[1][1] + pixels[lin][col+1][0] * gx[1][2] + pixels[lin-1][col-1][0] * gx[2][0] + pixels[lin+1][col][0] * gx[2][1] + pixels[lin+1][col+1][0] * gx[2][2]);
-            gyValBlue = (pixels[lin-1][col-1][0] * gy[0][0] + pixels[lin-1][col][0] * gy[0][1] + pixels[lin-1][col+1][0] * gy[0][2] + pixels[lin][col-1][0] * gy[1][0] + pixels[lin][col][0] * gy[1][1] + pixels[lin][col+1][0] * gy[1][2] + pixels[lin-1][col-1][0] * gy[2][0] + pixels[lin+1][col][0] * gy[2][1] + pixels[lin+1][col+1][0] * gy[2][2]);
+            gxValBlue = (pixels[i-1][j-1][0] * gx[0][0] + pixels[i-1][j][0] * gx[0][1] + pixels[i-1][j+1][0] * gx[0][2] + pixels[i][j-1][0] * gx[1][0] + pixels[i][j][0] * gx[1][1] + pixels[i][j+1][0] * gx[1][2] + pixels[i-1][j-1][0] * gx[2][0] + pixels[i+1][j][0] * gx[2][1] + pixels[i+1][j+1][0] * gx[2][2]);
+            gyValBlue = (pixels[i-1][j-1][0] * gy[0][0] + pixels[i-1][j][0] * gy[0][1] + pixels[i-1][j+1][0] * gy[0][2] + pixels[i][j-1][0] * gy[1][0] + pixels[i][j][0] * gy[1][1] + pixels[i][j+1][0] * gy[1][2] + pixels[i-1][j-1][0] * gy[2][0] + pixels[i+1][j][0] * gy[2][1] + pixels[i+1][j+1][0] * gy[2][2]);
 
+            gxValGreen = (pixels[i-1][j-1][1] * gx[0][0] + pixels[i-1][j][1] * gx[0][1] + pixels[i-1][j+1][1] * gx[0][2] + pixels[i][j-1][1] * gx[1][0] + pixels[i][j][1] * gx[1][1] + pixels[i][j+1][1] * gx[1][2] + pixels[i-1][j-1][1] * gx[2][0] + pixels[i+1][j][1] * gx[2][1] + pixels[i+1][j+1][1] * gx[2][2]);
+            gyValGreen = (pixels[i-1][j-1][1] * gy[0][0] + pixels[i-1][j][1] * gy[0][1] + pixels[i-1][j+1][1] * gy[0][2] + pixels[i][j-1][1] * gy[1][0] + pixels[i][j][1] * gy[1][1] + pixels[i][j+1][1] * gy[1][2] + pixels[i-1][j-1][1] * gy[2][0] + pixels[i+1][j][1] * gy[2][1] + pixels[i+1][j+1][1] * gy[2][2]);
+
+            gxValRed = (pixels[i-1][j-1][2] * gx[0][0] + pixels[i-1][j][2] * gx[0][1] + pixels[i-1][j+1][2] * gx[0][2] + pixels[i][j-1][2] * gx[1][0] + pixels[i][j][2] * gx[1][1] + pixels[i][j+1][2] * gx[1][2] + pixels[i-1][j-1][2] * gx[2][0] + pixels[i+1][j][2] * gx[2][1] + pixels[i+1][j+1][2] * gx[2][2]);
+            gyValRed = (pixels[i-1][j-1][2] * gy[0][0] + pixels[i-1][j][2] * gy[0][1] + pixels[i-1][j+1][2] * gy[0][2] + pixels[i][j-1][2] * gy[1][0] + pixels[i][j][2] * gy[1][1] + pixels[i][j+1][2] * gy[1][2] + pixels[i-1][j-1][2] * gy[2][0] + pixels[i+1][j][2] * gy[2][1] + pixels[i+1][j+1][2] * gy[2][2]);
+            
             squaredBlue = (int)sqrt(gxValBlue*gxValBlue + gyValBlue*gyValBlue);
-
-            gxValGreen = (pixels[lin-1][col-1][1] * gx[0][0] + pixels[lin-1][col][1] * gx[0][1] + pixels[lin-1][col+1][1] * gx[0][2] + pixels[lin][col-1][1] * gx[1][0] + pixels[lin][col][1] * gx[1][1] + pixels[lin][col+1][1] * gx[1][2] + pixels[lin-1][col-1][1] * gx[2][0] + pixels[lin+1][col][1] * gx[2][1] + pixels[lin+1][col+1][1] * gx[2][2]);
-            gyValGreen = (pixels[lin-1][col-1][1] * gy[0][0] + pixels[lin-1][col][1] * gy[0][1] + pixels[lin-1][col+1][1] * gy[0][2] + pixels[lin][col-1][1] * gy[1][0] + pixels[lin][col][1] * gy[1][1] + pixels[lin][col+1][1] * gy[1][2] + pixels[lin-1][col-1][1] * gy[2][0] + pixels[lin+1][col][1] * gy[2][1] + pixels[lin+1][col+1][1] * gy[2][2]);
-
+            squaredRed = (int)sqrt(gxValRed*gxValRed + gyValRed*gyValRed);
             squaredGreen = (int)sqrt(gxValGreen*gxValGreen + gyValGreen*gyValGreen);
 
-            gxValRed = (pixels[lin-1][col-1][2] * gx[0][0] + pixels[lin-1][col][2] * gx[0][1] + pixels[lin-1][col+1][2] * gx[0][2] + pixels[lin][col-1][2] * gx[1][0] + pixels[lin][col][2] * gx[1][1] + pixels[lin][col+1][2] * gx[1][2] + pixels[lin-1][col-1][2] * gx[2][0] + pixels[lin+1][col][2] * gx[2][1] + pixels[lin+1][col+1][2] * gx[2][2]);
-            gyValRed = (pixels[lin-1][col-1][2] * gy[0][0] + pixels[lin-1][col][2] * gy[0][1] + pixels[lin-1][col+1][2] * gy[0][2] + pixels[lin][col-1][2] * gy[1][0] + pixels[lin][col][2] * gy[1][1] + pixels[lin][col+1][2] * gy[1][2] + pixels[lin-1][col-1][2] * gy[2][0] + pixels[lin+1][col][2] * gy[2][1] + pixels[lin+1][col+1][2] * gy[2][2]);
 
-            squaredRed = (int)sqrt(gxValRed*gxValRed + gyValRed*gyValRed);
+                if (squaredBlue > 50) color[2] = 255;
+                else color[2] = 0;
 
+                if (squaredRed > 50) color[0] = 255;
+                else color[0] = 0;
 
-
-                if (squaredBlue > 100)
-                {
-                    greyColor[2] = 255;
-                }
-                else
-                {
-                    greyColor[2] = 0;
-                }
-
-
-
-                if (squaredGreen > 100)
-                {
-                    greyColor[1] = 255;
-                }
-                else
-                {
-                    greyColor[1] = 0;
-                }
-
-
-                if (squaredRed > 100)
-                {
-                    greyColor[0] = 255;
-                }
-                else
-                {
-                    greyColor[0] = 0;
-                }
-
+                if (squaredGreen > 50) color[1] = 255;
+                else color[1] = 0;
             }
             else    // bottom
             {
-
-
-                greyColor[0] = 0;
-                greyColor[1] = 0;
-                greyColor[2] = 0;
-
-
+                color[0] = 0;
+                color[1] = 0;
+                color[2] = 0;
             }
-            outputFile.write(reinterpret_cast<char*>(greyColor),3);
+
+            outputFile.write(reinterpret_cast<char*>(color),3);
         }
 
     }

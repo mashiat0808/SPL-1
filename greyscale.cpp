@@ -10,8 +10,8 @@ void greyscale(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader inf
      ifstream inputFile;
      ofstream outputFile;
 
-    inputFile.open("baboon.bmp",ios:: binary);
-    outputFile.open("greyscaleofbaboon2.bmp", ios :: binary);
+    inputFile.open("meah.bmp",ios:: binary);
+    outputFile.open("meahgc.bmp", ios :: binary);
     
     
     if(inputFile.eof()) throw runtime_error("File not found");
