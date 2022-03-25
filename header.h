@@ -13,6 +13,8 @@
 #include "compression.cpp"
 #include "greyscale.cpp"
 #include "edgedetection.cpp"
+#include "brightening.cpp"
+#include "sharpening.cpp"
 //#include "decimaltohexadecimal.cpp"
 
 void readHeaderAndPrint(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader);
@@ -23,5 +25,8 @@ void copyImageFile();
 void greyscale(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader);
 void edgedetection(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader);
 string intToString(unsigned int value);
+void brightening(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader);
+void sharpening(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader);
+
 
 ///string decToHexa(int n);
