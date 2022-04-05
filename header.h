@@ -15,6 +15,7 @@
 #include "edgedetection.cpp"
 #include "brightening.cpp"
 #include "sharpening.cpp"
+#include "smoothing.cpp"
 //#include "decimaltohexadecimal.cpp"
 
 void readHeaderAndPrint(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader);
@@ -27,6 +28,7 @@ void edgedetection(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader
 string intToString(unsigned int value);
 void brightening(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader);
 void sharpening(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader);
-
+void insertionSort(int arr[], int n);
+void smoothing(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader);
 
 ///string decToHexa(int n);

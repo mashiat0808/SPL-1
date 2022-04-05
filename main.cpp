@@ -16,8 +16,9 @@ int main ()
  //   compressImageFile(signature,fileHeader,infoHeader, colorHeader);
   //greyscale(signature,fileHeader,infoHeader, colorHeader);
  // edgedetection(signature,fileHeader,infoHeader, colorHeader);
-  brightening(signature,fileHeader,infoHeader, colorHeader);
+ // brightening(signature,fileHeader,infoHeader, colorHeader);
   //  copyImageFile();
   // sharpening(signature,fileHeader,infoHeader, colorHeader);
+  smoothing(signature,fileHeader,infoHeader, colorHeader);
     return 0;
 }
