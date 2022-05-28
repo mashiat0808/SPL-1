@@ -27,8 +27,8 @@ void smoothing(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader inf
      ifstream inputFile;
      ofstream outputFile;
 
-       inputFile.open("baboon.bmp",ios:: binary);
-    outputFile.open("babsmoothing.bmp", ios :: binary);
+       inputFile.open("blackbuck.bmp",ios:: binary);
+    outputFile.open("bbsmoothing.bmp", ios :: binary);
     
     
     if(inputFile.eof()) throw runtime_error("File not found");

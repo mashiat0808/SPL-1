@@ -53,8 +53,8 @@ void edgedetection(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader
     int squaredGreen;
     int squaredRed;
 
-    inputFile.open("meah.bmp",ios:: binary);
-    outputFile.open("meahedge2.bmp", ios :: binary);
+    inputFile.open("blackbuck.bmp",ios:: binary);
+    outputFile.open("blackbuckedge.bmp", ios :: binary);
     
     
     if(inputFile.eof()) throw runtime_error("File not found");
@@ -126,13 +126,13 @@ void edgedetection(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader
             squaredGreen = (int)sqrt(gxValGreen*gxValGreen + gyValGreen*gyValGreen);
 
 
-                if (squaredBlue > 50) color[2] = 255;
+                if (squaredBlue > 100) color[2] = 255;
                 else color[2] = 0;
 
-                if (squaredRed > 50) color[0] = 255;
+                if (squaredRed > 100) color[0] = 255;
                 else color[0] = 0;
 
-                if (squaredGreen > 50) color[1] = 255;
+                if (squaredGreen > 100) color[1] = 255;
                 else color[1] = 0;
             }
             else    // bottom

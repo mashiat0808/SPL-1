@@ -8,7 +8,7 @@ using namespace std;
 void checkFile(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader infoHeader, bmpColorHeader colorHeader)
 {
     ifstream inputFile;
-    inputFile.open("x.bmp",ios:: binary);
+    inputFile.open("blackbuck.bmp",ios:: binary);
     if(inputFile.eof()) throw runtime_error("File not found");
     inputFile.seekg(0,ios::beg);
     inputFile.read((char*)&signature,sizeof(signature));

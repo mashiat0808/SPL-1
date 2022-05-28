@@ -32,7 +32,7 @@ void compressImageFile(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHe
     ifstream inputFile;
     ofstream oFile;
 
-    inputFile.open("x.bmp",ios:: binary);
+    inputFile.open("blackbuck.bmp",ios:: binary);
     if(inputFile.eof()) return;
 
     inputFile.seekg(0,ios::beg);
@@ -48,8 +48,8 @@ void compressImageFile(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHe
 
     inputFile.close();
 
-    inputFile.open("x.bmp",ios:: binary);
-    oFile.open("xcompressed.BMP",ios::binary);
+    inputFile.open("blackbuck.bmp",ios:: binary);
+    oFile.open("xcompressed.bmp",ios::binary);
 
     if(!inputFile.is_open() && !oFile.is_open()) return;
 
