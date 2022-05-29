@@ -70,10 +70,8 @@ void smoothing(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader inf
      int sumb=0;
     for (int lin = 1; lin < height; ++lin)
     {  
-
         for (int col = 1; col < width; ++col)
-        {
-            
+        {         
             matrix[0] = pixels[lin-1][col-1][0];
             matrix[1] = pixels[lin-1][col][0];
             matrix[2] = pixels[lin-1][col+1][0];

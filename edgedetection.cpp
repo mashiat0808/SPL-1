@@ -23,9 +23,9 @@ void edgedetection(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader
     gx[1][1] = 0;
     gx[1][2] = -2;
 
-    gx[2][0] = -1;
+    gx[2][0] = 1;
     gx[2][1] = 0;
-    gx[2][2] = 1;
+    gx[2][2] = -1;
 
 
     gy[0][0] = 1;
@@ -125,28 +125,28 @@ void edgedetection(bmpSignature signature,bmpFileHeader fileHeader,bmpInfoHeader
             squaredRed = (int)sqrt(gxValRed*gxValRed + gyValRed*gyValRed);
             squaredGreen = (int)sqrt(gxValGreen*gxValGreen + gyValGreen*gyValGreen);
 
-
-                if (squaredBlue > 100) color[2] = 255;
+                if (squaredBlue > 127) 
+                {
+                    color[2] = 255;      
+                }
                 else color[2] = 0;
 
-                if (squaredRed > 100) color[0] = 255;
+                if (squaredRed > 127) color[0] = 255;
                 else color[0] = 0;
 
-                if (squaredGreen > 100) color[1] = 255;
+                if (squaredGreen > 127) color[1] = 255;
                 else color[1] = 0;
-            }
+            } 
             else    // bottom
             {
                 color[0] = 0;
                 color[1] = 0;
                 color[2] = 0;
             }
-
             outputFile.write(reinterpret_cast<char*>(color),3);
         }
-
     }
-
+    
     bmpColorTable colorTable;
     inputFile.read((char*)&colorTable,sizeof(colorTable));
     outputFile.write((char*)&colorTable,sizeof(colorTable));
